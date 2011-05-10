@@ -1,7 +1,7 @@
 #{extends 'main.html' /}
-#{set title:'Chatroom' /}
+#{set title:'Playground!' /}
 
-<h2>The chat room</h2>
+<h2>The Playground!</h2>
 
 <br/>
 <div id="messages">
@@ -15,7 +15,7 @@
 var socket = new WebSocket("@@{Application.Chatroom.join(user)}");
 socket.onmessage = function(event) {
 	var parts = /^([^:]+):(.*)?$/.exec(event.data)
-	$("#messages").append("<li><b>" + parts[1] + "</b>: <span style='padding-left:12pt'>" + parts[2] + "</span>"); 
+	$("#messages").append("<li class='message'><b>" + parts[1] + "</b>: <span style='padding-left:12pt'>" + parts[2] + "</span>"); 
 };
 
 $("#send").click(function() {

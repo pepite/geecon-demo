@@ -1,8 +1,9 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
-<h2>Enter your nickname to join the chatroom</h2>
+<h2>Enter your nickname to join the Playground!</h2>
 <hr/>
+
 #{form @Application.room(), method:'GET'}
 <input type="text" name="user" />
 <input type="submit" />
