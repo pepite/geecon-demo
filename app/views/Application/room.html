@@ -1,26 +1,39 @@
 #{extends 'main.html' /}
 #{set title:'Playground!' /}
-
+#{set 'moreScripts'}
+ <script src="@{'/public/javascripts/main.js'}" type="text/javascript" charset="utf-8"></script>
+#{/set}
 <h2>The Playground!</h2>
+
+
 
 <br/>
 <div id="messages">
-
-
 </div>
+
 <hr/>
-<input id="text" type="text" value=""/><input id="send" type="submit" value="send"/>
+
+<input id="msg" type="text" value=""/><input id="btn" type="submit" value="send"/>
 
 <script>
+
 var socket = new WebSocket("@@{Application.Chatroom.join(user)}");
 socket.onmessage = function(event) {
-	var parts = /^([^:]+):(.*)?$/.exec(event.data)
-	$("#messages").append("<li class='message'><b>" + parts[1] + "</b>: <span style='padding-left:12pt'>" + parts[2] + "</span>"); 
+	var x = $("<div >" + event.data + "</div><span/>");
+	$("#messages").append(x);
+	pgal.init(); 
 };
 
-$("#send").click(function() {
-	socket.send($("#text").val());
-	$("#text").val(""); 
+$("#btn").click(function() {
+	socket.send($("#msg").val());
+	$("#msg").val(""); 
+});
+
+$('#msg').keypress(function(e) {
+    if(e.charCode == 13 || e.keyCode == 13) {
+        $('#btn').click()
+        e.preventDefault()
+    }
 });
 
 
